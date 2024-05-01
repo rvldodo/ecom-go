@@ -19,9 +19,6 @@ migrate_down:
 migrate_fix:
 	@go run cmd/goose/main.go fix
 
-migrate_reset:
-	@go run cmd/goose/main.go reset
-
 migrate_version:
 	@go run cmd/goose/main.go version
 

@@ -9,8 +9,10 @@ import (
 var Envs = initConfig()
 
 type Config struct {
-	PublicHost string
-	Port       string
+	PublicHost     string
+	Port           string
+	SecretTokenJWT string
+	JWTExpiredTime int64
 	DBConfig
 	DBGoose
 }
@@ -34,8 +36,10 @@ func initConfig() Config {
 		log.Fatal(err)
 	}
 	return Config{
-		PublicHost: viper.GetString("PUBLIC_HOST"),
-		Port:       viper.GetString("PORT"),
+		PublicHost:     viper.GetString("PUBLIC_HOST"),
+		Port:           viper.GetString("PORT"),
+		SecretTokenJWT: viper.GetString("JWT_TOKEN_KEY"),
+		JWTExpiredTime: viper.GetInt64("JWT_EXPIRED_TIME"),
 		DBConfig: DBConfig{
 			DBUser:     viper.GetString("DB_USER"),
 			DBPassword: viper.GetString("DB_PASSWORD"),
