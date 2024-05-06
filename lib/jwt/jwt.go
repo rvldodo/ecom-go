@@ -31,6 +31,19 @@ func CreateToken(userID int) (string, error) {
 	return tokenString, nil
 }
 
+func CreateTokenCookie(v interface{}) (string, error) {
+	token := jwt.NewWithClaims(defaultMethodJWT, jwt.MapClaims{
+		"data": v,
+	})
+
+	tokenString, err := token.SignedString(secretTokenKey)
+	if err != nil {
+		return "", err
+	}
+
+	return tokenString, nil
+}
+
 func GetTokenFromRequest(r *http.Request) string {
 	token := r.Header.Get("Authorization")
 	if token != "" {

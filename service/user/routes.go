@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 
 	"github.com/dodo/ecom/lib/bcrypt"
+	"github.com/dodo/ecom/lib/cookies"
 	"github.com/dodo/ecom/lib/jwt"
 	"github.com/dodo/ecom/types"
 	"github.com/dodo/ecom/utils"
@@ -59,6 +60,15 @@ func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
 
 	token, err := jwt.CreateToken(u.ID)
 	if err != nil {
+		utils.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	v := &cookies.CookieData{
+		UserID: u.ID,
+		Email:  u.Email,
+	}
+	if err = cookies.SetCookie(v, w, r); err != nil {
 		utils.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}

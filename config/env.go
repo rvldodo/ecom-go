@@ -11,6 +11,7 @@ var Envs = initConfig()
 type Config struct {
 	PublicHost     string
 	Port           string
+	SwaggerAddress string
 	SecretTokenJWT string
 	JWTExpiredTime int64
 	DBConfig
@@ -38,6 +39,7 @@ func initConfig() Config {
 	return Config{
 		PublicHost:     viper.GetString("PUBLIC_HOST"),
 		Port:           viper.GetString("PORT"),
+		SwaggerAddress: viper.GetString("SWAGGER_ADDRESS"),
 		SecretTokenJWT: viper.GetString("JWT_TOKEN_KEY"),
 		JWTExpiredTime: viper.GetInt64("JWT_EXPIRED_TIME"),
 		DBConfig: DBConfig{
